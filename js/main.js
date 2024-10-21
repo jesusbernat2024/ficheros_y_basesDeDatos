@@ -37,8 +37,9 @@ document.getElementById('btnCargar').onclick = async function (e) {
             'orden':orden
         })
     });
-    data = await response.text();
+    data = await response.json();
     
-    document.getElementById('nombre').value = decodeURI(data);
+    document.getElementById('nombre').value = data.nombre;
+    document.getElementById('resultado').innerHTML = data.mensaje;
     
 };

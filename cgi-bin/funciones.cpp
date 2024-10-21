@@ -48,7 +48,6 @@ int main() {
 
 
     
-    cout << "Content-Type: text/plain\n\n";
 
     if( string(orden) == "guardar"){
         // Crear fichero
@@ -57,18 +56,35 @@ int main() {
         archivo << nombre;
         // cerrar fichero
         archivo.close();
+        
+        cout << "Content-Type: text/plain\n\n";
         cout << "Fichero guardado";
     }
 
     if( string(orden) == "cargar"){
+
+
         // Abrir fichero
         ifstream archivo2("configuracion.config");
+        
         // capturar contenido
+        string n = "";
         string linea;
         getline(archivo2,linea);
+        n = linea;
         // cerrar fichero
         archivo2.close();
-        cout << linea;
+
+        string respuesta = "{";
+        respuesta += "\"nombre\":\"";
+        respuesta += n;
+        respuesta += "\", \"mensaje\":\"";
+        respuesta += "Fichero cargado";
+        respuesta += "\"}";
+        // '{"nombre":"Oriol", "mensaje":"Fichero cargado"}'
+
+        cout << "Content-Type: application/json\n\n";
+        cout << respuesta;
     }
 
 
