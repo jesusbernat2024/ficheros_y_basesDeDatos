@@ -31,6 +31,8 @@ int main() {
 
     // Inicializar variables
     char nombre[50] = "";
+    char apellido[50] = "";
+    char color[50] = "";
     char orden[50] = "";
 
     if (query_string != nullptr) {
@@ -39,6 +41,8 @@ int main() {
         char* token = strtok(param, "&");    // Separar los parámetros
         while (token != nullptr) {
             if (sscanf(token, "nombre=%49s", nombre) == 1) {  }
+            if (sscanf(token, "apellido=%49s", apellido) == 1) {  }
+            if (sscanf(token, "color=%49s", color) == 1) {  }
             if (sscanf(token, "orden=%49s", orden) == 1) {  }
             token = strtok(nullptr, "&");    // Continuar con el siguiente parámetro
         }
@@ -53,7 +57,9 @@ int main() {
         // Crear fichero
         ofstream archivo("configuracion.config");
         // rellenar fichero
-        archivo << nombre;
+        archivo << nombre << "\n";
+        archivo << apellido << "\n";
+        archivo << color << "\n";
         // cerrar fichero
         archivo.close();
         
@@ -69,15 +75,25 @@ int main() {
         
         // capturar contenido
         string n = "";
+        string a = "";
+        string c = "";
         string linea;
         getline(archivo2,linea);
         n = linea;
+        getline(archivo2,linea);
+        a = linea;
+        getline(archivo2,linea);
+        c = linea;
         // cerrar fichero
         archivo2.close();
 
         string respuesta = "{";
         respuesta += "\"nombre\":\"";
         respuesta += n;
+        respuesta += "\", \"apellido\":\"";
+        respuesta += a;
+        respuesta += "\", \"color\":\"";
+        respuesta += c;
         respuesta += "\", \"mensaje\":\"";
         respuesta += "Fichero cargado";
         respuesta += "\"}";
